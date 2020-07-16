@@ -379,21 +379,24 @@ function isBracketsBalanced(str) {
  *
  */
 function timespanToHumanString(startDate, endDate) {
-    throw new Error('Not implemented');
-    /* function timeToStr(start, end) {
-        let timeSpan = end.getTime() - start.getTime();
-        const hours = `0${Math.floor(timeSpan / (1000 * 60 * 60))}`.slice(-2);
-        timeSpan -= hours * 60 * 60 * 1000;
-        const mins = `0${Math.floor(timeSpan / (1000 * 60))}`.slice(-2);
-        timeSpan -= mins * 60 * 1000;
-        const secs = `0${Math.floor(timeSpan / (1000))}`.slice(-2);
-        timeSpan -= secs * 1000;
-        const ms = `00${timeSpan}`.slice(-3);
-        return `${hours}:${mins}:${secs}.${ms}`;
-    }
-    let result = timeToStr(startDate, endDate);
-    if(result)
-    return result; */
+    let secs = (endDate - startDate) / 1000;
+    let mins = secs / 60;
+    let hours = mins / 60;
+    let days = hours / 24;
+    let months = days / 30;
+    let years = days / 365;
+
+    if (secs > 0 && secs <= 45) return 'a few seconds ago';
+    if (secs > 45 && secs <= 90) return 'a minute ago';
+    if (secs > 90 && mins <= 45) return Math.ceil(mins - 0.5) + ' minutes ago';
+    if (mins > 45 && mins <= 90) return 'an hour ago';
+    if (mins > 90 && hours <= 22) return Math.ceil(hours - 0.5) + ' hours ago';
+    if (hours > 22 && hours <= 36) return 'a day ago';
+    if (hours > 36 && days <= 25) return Math.ceil(days - 0.5) + ' days ago';
+    if (days > 25 && days <= 45) return 'a month ago';
+    if (days > 45 && days <= 345) return Math.ceil(months - 0.5) + ' months ago';
+    if (days > 345 && days <= 545) return 'a year ago';
+    if (days > 545) return Math.round(years) + ' years ago';
 }
 
 
