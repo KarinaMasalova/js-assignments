@@ -47,7 +47,7 @@ function getComposition(f,g) {
  *
  */
 function getPowerFunction(exponent) {
-    return (x) => Math.pow(x, exponent);
+    return (x) => x ** exponent;
 }
 
 
@@ -64,24 +64,10 @@ function getPowerFunction(exponent) {
  *   getPolynom(8)     => y = 8
  *   getPolynom()      => null
  */
-
-/* 
+ 
 function getPolynom(...args) {
-    return (x) => [...args].reverse().reduce((acc, cur, i) => acc + cur * (Math.pow(x, i)));
+    return (x) => [...args].reverse().reduce((acc, cur, i) => acc + cur * (x ** i));
 } 
-*/
-
-function getPolynom() {
-    for (var len = arguments.length, args = new Array(len), key = 0; key < len; key++) {
-        args[key] = arguments[key];
-    }
-
-    return function (x) {
-        return [].concat(args).reverse().reduce(function (acc, cur, i) {
-            return acc + cur * Math.pow(x, i);
-        });
-    };
-}
 
 
 /**
@@ -160,28 +146,14 @@ function retry(func, attempts) {
  *
  */
 
- /*function logger(func, logFunc) {
+function logger(func, logFunc) {
     return (...args) => {
         logFunc(`${func.name}(${JSON.stringify(args).slice(1, -1)}) starts`);
         const res = func(...args);
         logFunc(`${func.name}(${JSON.stringify(args).slice(1, -1)}) ends`);
         return res;
     };
-} */
-
-function logger(func, logFunc) {
-    return function () {
-      for (var len = arguments.length, args = new Array(len), key = 0; key < len; key++) {
-        args[key] = arguments[key];
-      }
-  
-      logFunc("".concat(func.name, "(").concat(JSON.stringify(args).slice(1, -1), ") starts"));
-      let res = func.apply(void 0, args);
-      logFunc("".concat(func.name, "(").concat(JSON.stringify(args).slice(1, -1), ") ends"));
-      return res;
-    };
 }
-
 
 /**
  * Return the function with partial applied arguments
@@ -197,22 +169,8 @@ function logger(func, logFunc) {
  *   partialUsingArguments(fn, 'a','b','c','d')() => 'abcd'
  */
 
-/*function partialUsingArguments(fn, ...args1) {
+function partialUsingArguments(fn, ...args1) {
     return (...args) => fn(...args1, ...args);
-} */
-
-function partialUsingArguments(fn) {
-    for (var len = arguments.length, args1 = new Array(len > 1 ? len - 1 : 0), key = 1; key < len; key++) {
-      args1[key - 1] = arguments[key];
-    }
-  
-    return function () {
-      for (var len2 = arguments.length, args = new Array(len2), key2 = 0; key2 < len2; key2++) {
-        args[key2] = arguments[key2];
-      }
-  
-      return fn.apply(void 0, args1.concat(args));
-    };
 }
 
 
