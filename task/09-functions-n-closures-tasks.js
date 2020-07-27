@@ -64,8 +64,23 @@ function getPowerFunction(exponent) {
  *   getPolynom(8)     => y = 8
  *   getPolynom()      => null
  */
+
+/* 
 function getPolynom(...args) {
     return (x) => [...args].reverse().reduce((acc, cur, i) => acc + cur * (Math.pow(x, i)));
+} 
+*/
+
+function getPolynom() {
+    for (var len = arguments.length, args = new Array(len), key = 0; key < len; key++) {
+        args[key] = arguments[key];
+    }
+
+    return function (x) {
+        return [].concat(args).reverse().reduce(function (acc, cur, i) {
+            return acc + cur * Math.pow(x, i);
+        });
+    };
 }
 
 
