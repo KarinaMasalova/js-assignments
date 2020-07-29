@@ -135,7 +135,16 @@ function* depthTraversalTree(root) {
  *
  */
 function* breadthTraversalTree(root) {
-    throw new Error('Not implemented');
+    let queue = [ [root] ];
+    while (queue.length) {
+        let shifted = queue.shift();
+        for (let node of shifted) {
+            if (node.children) {
+                queue.push(node.children);
+            }
+            yield node;
+        }
+    }
 }
 
 
@@ -171,8 +180,16 @@ function* mergeSortedSequences(source1, source2) {
  *
  *   Most popular implementation of the logic in npm https://www.npmjs.com/package/co
  */
+
 function async(generator) {
-    throw new Error('Not implemented');
+    let gener = generator();
+    function nextValue(step) {
+        if (step.done) return Promise.resolve(step.value);
+        return Promise
+                .resolve(step.value)
+                .then(el => nextValue(gener.next(el)));
+    }
+    return nextValue(gener.next());
 }
 
 
