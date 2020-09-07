@@ -276,9 +276,13 @@ function isString(value) {
  *   'K♠' => 51
  */
 function getCardId(value) {
-    const suits = ['♣', '♦', '♥', '♠'];
-    const cards = ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K'];
-    return cards.indexOf(value.slice(0, -1)) + suits.indexOf(value.slice(-1)) * cards.length;
+    const cards = [
+        'A♣', '2♣', '3♣', '4♣', '5♣', '6♣', '7♣', '8♣', '9♣', '10♣', 'J♣', 'Q♣', 'K♣',
+        'A♦', '2♦', '3♦', '4♦', '5♦', '6♦', '7♦', '8♦', '9♦', '10♦', 'J♦', 'Q♦', 'K♦',
+        'A♥', '2♥', '3♥', '4♥', '5♥', '6♥', '7♥', '8♥', '9♥', '10♥', 'J♥', 'Q♥', 'K♥',
+        'A♠', '2♠', '3♠', '4♠', '5♠', '6♠', '7♠', '8♠', '9♠', '10♠', 'J♠', 'Q♠', 'K♠'
+    ];
+    return cards.indexOf(value);
 }
 
 
