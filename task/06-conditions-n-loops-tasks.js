@@ -30,17 +30,16 @@
  *
  */
 function getFizzBuzz(num) {
-    let res;
     if (num % 3 === 0 && num % 5 === 0) {
-        res = 'FizzBuzz';
-    } else if (num % 5 === 0) {
-        res = 'Buzz';
-    } else if (num % 3 === 0) {
-        res = 'Fizz';
-    } else {
-        res = num;
+        return 'FizzBuzz';
     }
-    return res;
+    if (num % 5 === 0) {
+        return 'Buzz';
+    }
+    if (num % 3 === 0) {
+        return 'Fizz';
+    }
+    return num;
 }
 
 
@@ -95,8 +94,7 @@ function getSumBetweenNumbers(n1, n2) {
  *   10,10,10 =>  true
  */
 function isTriangle(a,b,c) {
-    if (a + b <= c || a + c <= b || b + c <= a) return false;
-    return true;
+    return !(a + b <= c || a + c <= b || b + c <= a);
 }
 
 
@@ -338,8 +336,8 @@ function isBracketsBalanced(str) {
     let s = str;
     for (let i = 0; i < arrayOfBrackets.length; i += 1) {
         if (s.includes(arrayOfBrackets[i])) {
-        s = s.replace(arrayOfBrackets[i], '');
-        i = -1;
+            s = s.replace(arrayOfBrackets[i], '');
+            i = -1;
         }
     }
 
@@ -505,17 +503,14 @@ function getMatrixProduct(m1, m2) {
  */
 function evaluateTicTacToePosition(position) {
     const isWin = (char) => {
-        if ((position[0][0] === char && position[0][1] === char && position[0][2] === char)
+        return ((position[0][0] === char && position[0][1] === char && position[0][2] === char)
             || (position[1][0] === char && position[1][1] === char && position[1][2] === char)
             || (position[2][0] === char && position[2][1] === char && position[2][2] === char)
             || (position[0][0] === char && position[1][0] === char && position[2][0] === char)
             || (position[1][1] === char && position[0][1] === char && position[2][1] === char)
             || (position[0][2] === char && position[1][2] === char && position[2][2] === char)
             || (position[0][0] === char && position[1][1] === char && position[2][2] === char)
-            || (position[0][2] === char && position[1][1] === char && position[2][0] === char)) {
-            return true;
-        }
-        return false;
+            || (position[0][2] === char && position[1][1] === char && position[2][0] === char));
     };
     if (isWin('X')) return 'X';
     if (isWin('0')) return '0';
